@@ -15,13 +15,13 @@ export class AuthService {
         const user = await this.userService.findOne(email);
 
         if (!user) {
-            throw new UnauthorizedException('User does not exists');
+            throw new UnauthorizedException('Invalid credentials');
         }
 
         const isPasswordMatch = await this.isMatch(pass, user?.password)
 
         if (!isPasswordMatch) {
-            throw new UnauthorizedException('Credentials incorrect');
+            throw new UnauthorizedException('Invalid credentials');
         }
         const payload = { sub: user.email }
 
