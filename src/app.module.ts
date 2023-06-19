@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TokensModule } from './tokens/tokens.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { MongooseModule } from '@nestjs/mongoose';
       envFilePath: '.env',
       isGlobal: true
     }),
-    MongooseModule.forRoot(process.env.DATABASE_URI)
+    MongooseModule.forRoot(process.env.DATABASE_URI),
+    TokensModule
   ],
   controllers: [AppController],
   providers: [

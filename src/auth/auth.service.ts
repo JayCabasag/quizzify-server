@@ -3,12 +3,14 @@ import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserType } from 'src/users/schemas/user.schema';
 import * as bcrypt from 'bcrypt';
+import { TokensService } from 'src/tokens/tokens.service';
 
 @Injectable()
 export class AuthService {
     constructor(
         private userService: UsersService,
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        private tokenService: TokensService
     ) { }
 
     async signIn(email: string, pass: string): Promise<any> {
@@ -23,10 +25,24 @@ export class AuthService {
         if (!isPasswordMatch) {
             throw new UnauthorizedException('Invalid credentials');
         }
-        const payload = { sub: user.email }
+
+
+        const userObjectId = user['_id'];
+        const userId = userObjectId.toString();
+
+        const payload = { id: userId, sub: user.email }
+
+        // Generate refresh token with a longer expiration date
+        const expiresIn = '30d'; // Set the desired expiration duration, e.g., 30 days
+        const refreshToken = await this.jwtService.signAsync(payload, { expiresIn });
+        const accessToken = await this.jwtService.signAsync(payload)
+        const expirationTime = new Date();
+        expirationTime.setDate(expirationTime.getDate() + parseInt(expiresIn));
+
+        await this.tokenService.addToken(userId, refreshToken, accessToken, expirationTime)
 
         return {
-            access_token: await this.jwtService.signAsync(payload)
+            access_token: accessToken
         }
     }
 
