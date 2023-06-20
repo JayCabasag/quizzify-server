@@ -32,9 +32,4 @@ export class AuthController {
             signUpDto.type
         );
     }
-
-    @Get('profile')
-    getProfile(@Request() req) {
-        return req.user
-    }
 }
