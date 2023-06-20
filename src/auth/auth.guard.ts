@@ -2,18 +2,17 @@ import {
     CanActivate,
     ExecutionContext,
     Injectable,
-    UnauthorizedException,
+    UnauthorizedException
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt'
-import { DecodedToken, jwtConstants } from './constants'
 import { Request } from 'express'
 import { IS_PUBLIC_KEY } from './auth.decorators';
-import { TokensService } from 'src/tokens/tokens.service';
+import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private jwtService: JwtService, private reflector: Reflector, private tokensService: TokensService) { }
+    constructor(private jwtService: JwtService, private reflector: Reflector) { }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
 
@@ -28,14 +27,14 @@ export class AuthGuard implements CanActivate {
 
         const request = context.switchToHttp().getRequest();
         const token = this.extractTokenFromHeader(request);
-        const isTokenExpired = await this.isTokenExpired(token)
+        const isValidToken = await this.isValidToken(token)
 
         if (!token) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException('Invalid token');
         }
 
-        if (isTokenExpired) {
-            throw new UnauthorizedException();
+        if (!isValidToken) {
+            throw new UnauthorizedException('Invalid token');
         }
 
         return true
@@ -46,18 +45,18 @@ export class AuthGuard implements CanActivate {
         return type === 'Bearer' ? token : undefined
     }
 
-    private async isTokenExpired(token: string): Promise<boolean> {
+    private async isValidToken(token: string): Promise<boolean> {
 
-        let isTokenExpired = false
+        let isValidToken = true
 
         await this.jwtService.verifyAsync(token, { secret: jwtConstants.secret })
             .then(() => {
-                isTokenExpired = false
+                isValidToken = true
             })
             .catch(() => {
-                isTokenExpired = true
+                isValidToken = false
             })
 
-        return isTokenExpired
+        return isValidToken
     }
 }
