@@ -37,12 +37,21 @@ export class AuthGuard implements CanActivate {
             throw new UnauthorizedException('Invalid token');
         }
 
+        const user = await this.decodeToken(token)
+
+        request['user'] = user
+
         return true
     }
 
     private extractTokenFromHeader(request: Request): string | undefined {
         const [type, token] = request.headers.authorization?.split(' ') ?? [];
         return type === 'Bearer' ? token : undefined
+    }
+
+    private async decodeToken(token) {
+        const decodeToken = await this.jwtService.decode(token) as Record<string, any>
+        return decodeToken
     }
 
     private async isValidToken(token: string): Promise<boolean> {

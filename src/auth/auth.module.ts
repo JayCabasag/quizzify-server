@@ -13,7 +13,7 @@ import { TokensModule } from 'src/tokens/tokens.module';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '30s' }
+      signOptions: { expiresIn: '30d' }
     })
   ],
   controllers: [AuthController],
