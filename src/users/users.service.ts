@@ -11,8 +11,9 @@ export class UsersService {
     ) { }
 
     async findById(id: string): Promise<User> {
+        const projection = { password: 0 }; // Exclude the 'password' field
         try {
-            return await this.userModel.findById(id)
+            return await this.userModel.findById(id, projection)
         } catch (error) {
             throw new NotFoundException('User not found')
         }
