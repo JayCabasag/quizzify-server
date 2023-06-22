@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokensModule } from './tokens/tokens.module';
+import { RoomsModule } from './rooms/rooms.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { TokensModule } from './tokens/tokens.module';
       isGlobal: true
     }),
     MongooseModule.forRoot(process.env.DATABASE_URI),
-    TokensModule
+    TokensModule,
+    RoomsModule
   ],
   controllers: [AppController],
   providers: [
