@@ -21,8 +21,6 @@ export class QuizCode {
     @Prop()
     endTime: Date
 
-    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
-    students: MongooseSchema.Types.ObjectId[]
 }
 
 export const QuizCodeSchema = SchemaFactory.createForClass(QuizCode)

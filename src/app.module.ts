@@ -10,6 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TokensModule } from './tokens/tokens.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { QuizCodeModule } from './quiz-code/quiz-code.module';
+import { QuizCodeGuard } from './quiz-code/quiz-code.guard';
 
 @Module({
   imports: [
@@ -30,6 +31,10 @@ import { QuizCodeModule } from './quiz-code/quiz-code.module';
     {
       provide: APP_GUARD,
       useClass: AuthGuard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: QuizCodeGuard
     }
   ],
 })

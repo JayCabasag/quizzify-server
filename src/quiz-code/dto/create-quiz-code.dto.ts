@@ -4,5 +4,4 @@ export class CreateQuizCodeDto {
     teacher: string;
     startTime: Date;
     endTime: Date;
-    students: string[];
 }
