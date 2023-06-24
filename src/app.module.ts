@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TokensModule } from './tokens/tokens.module';
 import { RoomsModule } from './rooms/rooms.module';
+import { QuizCodeModule } from './quiz-code/quiz-code.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { RoomsModule } from './rooms/rooms.module';
     }),
     MongooseModule.forRoot(process.env.DATABASE_URI),
     TokensModule,
-    RoomsModule
+    RoomsModule,
+    QuizCodeModule
   ],
   controllers: [AppController],
   providers: [
