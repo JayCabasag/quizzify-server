@@ -1,10 +1,9 @@
 import { Injectable, UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { User, UserType } from 'src/users/schemas/user.schema';
+import { UserType } from 'src/users/schemas/user.schema';
 import * as bcrypt from 'bcrypt';
 import { TokensService } from 'src/tokens/tokens.service';
-import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {

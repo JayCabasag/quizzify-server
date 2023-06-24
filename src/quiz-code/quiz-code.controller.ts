@@ -1,15 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
 import { QuizCodeService } from './quiz-code.service';
 import { CreateQuizCodeDto } from './dto/create-quiz-code.dto';
 import { UpdateQuizCodeDto } from './dto/update-quiz-code.dto';
 
 @Controller('quiz-code')
 export class QuizCodeController {
-  constructor(private readonly quizCodeService: QuizCodeService) {}
+  constructor(private readonly quizCodeService: QuizCodeService) { }
 
   @Post()
-  create(@Body() createQuizCodeDto: CreateQuizCodeDto) {
-    return this.quizCodeService.create(createQuizCodeDto);
+  create(@Body() createQuizCodeDto: CreateQuizCodeDto, @Request() request: Request & { user: Record<string, any> }) {
+    return this.quizCodeService.create(createQuizCodeDto, request);
   }
 
   @Get()
