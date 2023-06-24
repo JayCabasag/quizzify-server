@@ -3,13 +3,18 @@ import { QuizCodeService } from './quiz-code.service';
 import { QuizCodeController } from './quiz-code.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { QuizCodeSchema } from './schemas/quiz-code.schema';
-import { QuizCodeGuard } from './quiz-code.guard';
-import { APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from 'src/auth/constants';
 
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'QuizCode', schema: QuizCodeSchema }])
+    MongooseModule.forFeature([{ name: 'QuizCode', schema: QuizCodeSchema }]),
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '30d' }
+    })
   ],
   controllers: [QuizCodeController],
   providers: [QuizCodeService]

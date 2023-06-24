@@ -3,15 +3,16 @@ import { QuizCodeService } from './quiz-code.service';
 import { CreateQuizCodeDto } from './dto/create-quiz-code.dto';
 import { UpdateQuizCodeDto } from './dto/update-quiz-code.dto';
 import { RolesAllowed } from './quiz-code.decorator';
+import { UserType } from 'src/users/schemas/user.schema';
 
 @Controller('quiz-code')
 export class QuizCodeController {
   constructor(private readonly quizCodeService: QuizCodeService) { }
 
-  @Post()
-  @RolesAllowed()
-  create(@Body() createQuizCodeDto: CreateQuizCodeDto, @Request() request: Request & { user: Record<string, any> }) {
-    return this.quizCodeService.create(createQuizCodeDto, request);
+  @RolesAllowed(UserType.TEACHER)
+  @Post('new')
+  create(@Body() createQuizCodeDto: CreateQuizCodeDto) {
+    return this.quizCodeService.create(createQuizCodeDto);
   }
 
   @Get()
