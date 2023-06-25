@@ -14,18 +14,18 @@ export class QuizCodeService {
   }
 
   findAll() {
-    return `This action returns all quizCode`;
+    return this.quizCodeModel.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} quizCode`;
+  findOne(id: string) {
+    return this.quizCodeModel.findById(id)
   }
 
-  update(id: number, updateQuizCodeDto: UpdateQuizCodeDto) {
+  update(id: string, updateQuizCodeDto: UpdateQuizCodeDto) {
     return `This action updates a #${id} quizCode`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} quizCode`;
+  remove(id: string) {
+    return this.quizCodeModel.findByIdAndRemove(id)
   }
 }

@@ -11,6 +11,7 @@ import { TokensModule } from './tokens/tokens.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { QuizCodeModule } from './quiz-code/quiz-code.module';
 import { QuizCodeGuard } from './quiz-code/quiz-code.guard';
+import { QuizInvitesModule } from './quiz-invites/quiz-invites.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { QuizCodeGuard } from './quiz-code/quiz-code.guard';
     MongooseModule.forRoot(process.env.DATABASE_URI),
     TokensModule,
     RoomsModule,
-    QuizCodeModule
+    QuizCodeModule,
+    QuizInvitesModule
   ],
   controllers: [AppController],
   providers: [

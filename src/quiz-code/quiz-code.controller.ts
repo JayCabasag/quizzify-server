@@ -22,16 +22,20 @@ export class QuizCodeController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.quizCodeService.findOne(+id);
+    return this.quizCodeService.findOne(id);
   }
 
+  @RolesAllowed(UserType.TEACHER)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateQuizCodeDto: UpdateQuizCodeDto) {
-    return this.quizCodeService.update(+id, updateQuizCodeDto);
+    return this.quizCodeService.update(id, updateQuizCodeDto);
   }
 
+  @RolesAllowed(UserType.TEACHER)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.quizCodeService.remove(+id);
+    return this.quizCodeService.remove(id);
   }
+
+
 }
