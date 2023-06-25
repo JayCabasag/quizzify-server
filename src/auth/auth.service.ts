@@ -24,7 +24,6 @@ export class AuthService {
             throw new UnauthorizedException('Invalid credentials');
         }
 
-
         const userObjectId = user['_id'];
         const userId = userObjectId.toString();
 
