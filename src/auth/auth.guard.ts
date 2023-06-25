@@ -39,6 +39,7 @@ export class AuthGuard implements CanActivate {
 
         const user = await this.decodeToken(token)
 
+        request['token'] = token
         request['user'] = user
 
         return true

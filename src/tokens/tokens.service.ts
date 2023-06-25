@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Token } from './schemas/token.schema';
 import mongoose from 'mongoose';
+import { Request } from 'express';
 
 @Injectable()
 export class TokensService {
@@ -30,6 +31,16 @@ export class TokensService {
 
     async revokeToken(userId: string, refreshToken: string): Promise<Token> {
         return await this.tokenModel.findOneAndUpdate({ userId, refreshToken }, { isRevoked: true }, { new: true })
+    }
+
+    async verifyToken(request: Request & { token: string, user: Record<string, any> }): Promise<{ access_token: string, user: Record<string, any> }> {
+
+        const token = request.token
+        const user = request.user
+
+        const userResponse = { id: user.id, email: user.sub, type: user.type }
+
+        return { access_token: token, user: userResponse }
     }
 
 }
