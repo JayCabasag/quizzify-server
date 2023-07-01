@@ -1,77 +1,72 @@
 # Quizzify Server
 
-Welcome to the Quizzify Server repository! This repository contains the source code for a Web API server built using Nest JS and Mongo DB Atlas. Quizzify Server provides the backend functionality for the Quizzify application, allowing users to create, manage, and participate in quizzes.
+Welcome to the Quizzify Server repository! This repository contains the source code for a Web API server built using Nest.js and MongoDB Atlas. Quizzify Server provides the backend functionality for the Quizzify application, allowing users to create, manage, and participate in quizzes.
+
+## Prerequisites
+
+Before running the Quizzify Server, ensure that you have the following installed:
+
+- Node.js (v14 or above)
+- npm (Node Package Manager)
+- MongoDB Atlas account (or a local MongoDB installation)
 
 ## Getting Started
 
-To get started with Quizzify Server, follow the steps below:
+To get started with the Quizzify Server, follow these steps:
 
-### Prerequisites
+1. Clone the repository to your local machine:
+   ```shell
+   git clone https://github.com/your-username/quizzify-server.git
+   ```
 
-Make sure you have the following tools installed on your system:
+2. Navigate to the project directory:
+   ```shell
+   cd quizzify-server
+   ```
 
-- Node.js (version 14 or higher)
-- npm (Node Package Manager)
+3. Install the project dependencies:
+   ```shell
+   npm install
+   ```
 
-### Installation
+4. Create a `.env` file in the project root and provide the necessary environment variables. Below is an example of the required variables:
 
-1. Clone the repository using the following command:
+   ```plaintext
+   MONGODB_URI=<your_mongodb_uri>
+   PORT=<server_port>
+   ```
 
-```bash
-git clone https://github.com/JayCabasag/quizzify-server.git
-```
+   Replace `<your_mongodb_uri>` with the connection URI for your MongoDB database, and `<server_port>` with the desired port number for the server to listen on (e.g., `3000`).
 
-2. Change into the project directory:
+5. Start the server:
+   ```shell
+   npm run start
+   ```
 
-```bash
-cd quizzify-server
-```
-
-3. Install the dependencies:
-
-```bash
-npm install
-```
-
-### Configuration
-
-Before running the server, you need to configure the MongoDB connection. Open the `.env` file in the project root directory and provide your MongoDB Atlas connection URI. You can obtain the connection URI from your MongoDB Atlas account.
-
-```
-MONGODB_URI=<your-mongodb-atlas-connection-uri>
-```
-
-### Starting the Server
-
-To start the server, run the following command:
-
-```bash
-npm run start
-```
-
-This will start the server and it will be accessible at `http://localhost:4200`.
+6. The Quizzify Server should now be running locally at the specified port. You can access the server endpoints using a tool like Postman or cURL.
 
 ## Usage
 
-Once the server is running, you can use it to interact with the Quizzify application by making HTTP requests to the available endpoints. Here are some of the main endpoints:
+The Quizzify Server provides the following API endpoints:
 
-- `/quizzes`: This endpoint allows you to create new quizzes, retrieve a list of quizzes, and perform other CRUD operations on quizzes.
-- `/users`: This endpoint allows you to manage user accounts, including user registration and authentication.
-- `/questions`: This endpoint handles operations related to quiz questions, such as creating, updating, and deleting questions.
+- `GET /api/v1/quizzes` - Retrieve a list of all quizzes.
+- `GET /api/v1/quizzes/:id` - Retrieve a specific quiz by its ID.
+- `POST /api/v1/quizzes` - Create a new quiz.
+- `PUT /api/v1/quizzes/:id` - Update an existing quiz.
+- `DELETE /api/v1/quizzes/:id` - Delete a quiz.
 
-Please refer to the documentation or the source code for a complete list of available endpoints and their usage.
+Refer to the API documentation or the source code for further details on how to use these endpoints.
 
 ## Contributing
 
-Contributions are welcome! If you find any issues or want to add new features, please open an issue or submit a pull request to this repository. Make sure to follow the existing coding style and conventions.
+Contributions to the Quizzify Server are welcome! If you encounter any issues or have suggestions for improvements, feel free to open an issue or submit a pull request. Please ensure to follow the project's code style and conventions.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+The Quizzify Server is open-source software released under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute it as per the terms of the license.
 
-## Acknowledgments
+## Acknowledgements
 
-- This project was built using [Nest JS](https://nestjs.com/), a progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
-- MongoDB Atlas was used as the database for this project. MongoDB Atlas is a cloud-based, fully managed MongoDB service provided by MongoDB.
+The Quizzify Server was developed by [Your Name](https://github.com/your-username). Special thanks to the Nest.js and MongoDB communities for their excellent tools and resources.
 
-Feel free to explore the codebase and adapt it to your needs. If you have any questions or need further assistance, please don't hesitate to reach out. Happy coding!
+Enjoy using the Quizzify Server and happy quizzing!
